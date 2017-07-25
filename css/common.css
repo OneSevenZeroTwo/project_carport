@@ -1,0 +1,45 @@
+header {
+	text-align: center;
+	width: 100%;
+	background-color: orange;
+	color: whitesmoke;
+	height: 50px;
+	font-size: 24px;
+	line-height: 50px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+
+#search_Bar {
+	border-bottom: 1px solid #efeff4;
+}
+
+.weui-search-bar {
+	margin-top: 50px;
+}
+
+.swiper-container {
+	background-color: #efeff4;
+}
+
+.swiper-container {
+	width: 100%;
+}
+
+.swiper-slide {
+	background-position: center;
+	background-size: cover;
+	width: 300px;
+	height: 200px;
+}
+
+.weui-tabbar {
+	position: fixed;
+	background-color: burlywood;
+}
+.weui-media-box__desc img{
+	width: 80px;	
+	height: 60px;
+}

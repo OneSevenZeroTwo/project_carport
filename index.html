@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title></title>
+		<link rel="stylesheet" href="css/weui.css" />
+		<link rel="stylesheet" href="css/swiper.css" />
+		<link rel="stylesheet" href="css/common.css" />
+	</head>
+
+	<body>
+		<div id="box"></div>
+	</body>
+	<script src="js/vue-2.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/vuex.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/vue-router2.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/swiper.js" type="text/javascript" charset="utf-8"></script>
+	<script src="components/kheader.js" type="text/javascript" charset="utf-8"></script>
+	<script src="components/ksearch.js" type="text/javascript" charset="utf-8"></script>
+	<script src="components/kswiper.js" type="text/javascript" charset="utf-8"></script>
+	<script src="components/ktabbar.js" type="text/javascript" charset="utf-8"></script>
+	<script src="components/klist.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		var router = new VueRouter({
+			routes: [{
+				path: '/index',
+				component: {
+					template: `
+						<div>
+							<kheader></kheader>
+							<ksearch></ksearch>
+							<kswiper></kswiper>
+							<klist></klist>
+							<ktabbar></ktabbar>
+						</div>
+					`
+				}
+			}, {
+				path: '/article/:id',
+				component: {
+					template: `
+						<div><p>详情页</p></div>
+					`
+				}
+			}, {
+				path: '/',
+				redirect: '/index'
+			}]
+		});
+
+		//定义状态管理器
+		var store = new Vuex.Store({
+			//定义状态
+			state: {
+				//以下所有的变量就是数据源
+				count: 1,
+				title: "K V U E",
+				search: "",
+				news: null,
+				tabbar: 0,
+				imgArr: ["./images/1.jpg", "./images/2.jpg", "./images/3.jpg", "./images/4.jpg", "./images/5.jpg", "./images/6.jpg", "./images/7.jpg", "./images/8.jpg", "./images/9.jpg"]
+			},
+			getters: {
+				getTitle(state) {
+					return state.title
+				},
+				getImg(state) {
+					return state.imgArr
+				},
+				getTabbar(state) {
+					return state.tabbar
+				}
+			},
+
+			/////什么叫  分发状态
+			mutations: {
+				setCount(state, data) {
+					state.count = data
+				},
+				setTitle(state, data) {
+					state.title = data
+				},
+				setNews(state) {
+					console.log(this.Vue)
+					this.Vue.http.get("https://cnodejs.org/api/v1//topics", {
+						params: {
+							//page: scope.page++,
+							limit: 10
+						}
+					}).then((data) => {
+						console.log(data)
+						state.news = data.body.data
+					}, (err) => {
+
+					})
+				}
+			},
+			actions: {
+				setChange(context, data) {
+					context.commit('setCount', data)
+					context.commit('setTitle', data)
+				},
+				setTabbar(context, data) {
+					context.commit('setTabbar', data)
+				},
+				setNews(context, data) {
+					context.commit('setNews')
+				}
+			}
+		})
+		//实例化一个Vue对象
+		new Vue({
+			el: "#box",
+			template: `
+				<div>
+					<kheader></kheader>	
+					<ksearch></ksearch>
+					<kswiper></kswiper>
+					<klist></klist>
+					<ktabbar></ktabbar>
+				</div>
+			`,
+			store,
+			router,
+			mounted() {
+				//				console.log(this.$store)
+			}
+		})
+	</script>
+
+</html>
