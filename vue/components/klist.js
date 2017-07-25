@@ -11,12 +11,25 @@ Vue.component("klist", {
 		            </div>
 		        </a>
 		    </div>
-		    <div class="weui-panel__ft">
-		        <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
-		            <div class="weui-cell__bd">查看更多</div>
-		            <span class="weui-cell__ft"></span>
-		        </a>    
-		    </div>
+			<div class="weui-panel__ft">
+				<a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+					<div @click="loadMore()" class="weui-cell__bd">查看更多</div>
+					<span class="weui-cell__ft"></span>
+				</a>
+			</div>
+			<div class="weui-loadmore weui-loadmore_line" style="display:none;">
+				<span class="weui-loadmore__tips">暂无数据</span>
+			</div>
+			<div id="loadingToast" style="display:none">
+				<div class="weui-mask_transparent"></div>
+				<div class="weui-toast">
+		
+					<div data-name="mask" class="j_layer layers__layer layers__layer_mask j_transform">
+						<i class="weui-loading weui-icon_toast"></i>
+						<p class="weui-toast__content">数据加载中</p>
+					</div>
+				</div>
+			</div>
 		</div>
 	`,
 	methods: {
@@ -28,27 +41,31 @@ Vue.component("klist", {
 		news() {
 			console.log(this.$store.state.news)
 			return this.$store.state.news
+		},
+		loads() {
+//			console.log(this.$store.state.loads)
+			return this.$store.state.loads
 		}
 	},
 	mounted() {
 		this.loadMore();
 	},
-	components:{
-		kimgdirective:{
-			props:["img_url"],
-			template:`
+	components: {
+		kimgdirective: {
+			props: ["img_url"],
+			template: `
 				<div class="weui-media-box__hd">
 		            <img class="weui-media-box__thumb" :src="img_url" alt="">
 		        </div>
 			`
 		},
-		kcontentdirective:{
-			props:["msg"],
-			template:`
+		kcontentdirective: {
+			props: ["msg"],
+			template: `
 				<p class="weui-media-box__desc" v-html="msg"></p>
 			`,
-			computed:{
-				newsMsg(){
+			computed: {
+				newsMsg() {
 					return this.msg
 				}
 			}
