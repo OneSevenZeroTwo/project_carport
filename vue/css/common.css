@@ -1,3 +1,15 @@
+* {
+	margin: 0;
+	padding: 0
+}
+
+ul,
+li,
+a {
+	list-style: none;
+	text-decoration: none;
+}
+
 header {
 	text-align: center;
 	width: 100%;
@@ -16,10 +28,26 @@ header {
 	width: 300px;
 	height: 100%;
 	position: fixed;
-	background-color: white;
+	background-color: ghostwhite;
 	z-index: 9;
-	top: -610px;
+	top: -680px;
 	left: -300px;
+}
+
+.slider_content {
+	margin-left: 20px;
+}
+
+.slider_content p {
+	height: 36px;
+	font-size: 24px;
+	line-height: 36px;
+	margin: 10px 0;
+	text-indent: 12px;
+}
+
+.weui-uploader__bd {
+	margin-left: 20px;
 }
 
 .layers__layer_mask {
@@ -41,14 +69,6 @@ header {
 	text-align: center;
 	color: #1bfc8f;
 	text-shadow: 2px 1px 2px rgba(229, 45, 228, 0.98);
-}
-
-.slide_main p {
-	height: 36px;
-	font-size: 24px;
-	line-height: 36px;
-	margin: 10px 0;
-	text-indent: 12px;
 }
 
 #search_Bar {
@@ -179,7 +199,7 @@ header {
 
 @keyframes moveLeft {
 	from {
-		transform: translateX(300px) translateY(668px);
+		transform: translateX(300px) translateY(728px);
 		width: 300px;
 	}
 	to {
@@ -190,12 +210,12 @@ header {
 @keyframes moveRight {
 	from {}
 	to {
-		transform: translateX(300px) translateY(660px);
+		transform: translateX(300px) translateY(728px);
 	}
 }
 
 .weui-panel__ft {
-	margin-bottom: 50px;
+	/*margin-bottom: 50px;*/
 }
 
 .weui-loadmore__tips {
@@ -205,4 +225,39 @@ header {
 .j_layer {
 	width: 100%;
 	height: 100%;
+	position: fixed;
+	z-index: 8;
+	opacity: 0.5;
+	background-color: black;
+}
+
+.show_layers,
+.showLoadmore {
+	display: none;
+}
+
+.list_foot_cot a{
+	color:black;
+	margin-top: 5px;
+	font-size: 14px;
+	height: 16px;
+	line-height: 16px;
+	text-align: center;
+}
+
+.list_foot_cot p{
+	height: 20px;
+	display:inline-block;	
+}
+
+.share_Bg_b {
+	background-color: blue;
+}
+
+.share_Bg_r {
+	background-color: red;
+}
+
+.share_Bg_t {
+	background-color: greenyellow;
 }

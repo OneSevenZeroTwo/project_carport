@@ -18,15 +18,15 @@ Vue.component("kheader", {
 			return this.$store.getters.getTitle
 			//			console.log(this.$store.state.title)
 		},
-		changeMenu(){
+		changeMenu() {
 			return this.$store.state.changeMenu
 		},
-		slider(){
+		slider() {
 			return this.$store.getters.getMenu
 		}
 	},
-	methods:{
-		setMenu(){
+	methods: {
+		setMenu() {
 			this.$store.state.slider = !(this.$store.state.slider)
 			this.$store.state.changeMenu = !(this.$store.state.changeMenu)
 		}

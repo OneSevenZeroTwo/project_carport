@@ -1,6 +1,6 @@
 Vue.component("klayers", {
 	template: `
-		<div data-name="navigation" :class="{'j_pic':slider==false,'j_transform':slider==true}" class="j_layer layers__layer layers__layer_navigation"></div>
+		<div data-name="navigation" :class="{'j_pic show_layers':slider==false,'j_layer j_transform':slider==true}" class="layers__layer layers__layer_navigation"></div>
 	`,
 	computed: {
 		slider() {

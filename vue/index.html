@@ -9,6 +9,9 @@
 		<link rel="stylesheet" href="css/swiper.css" />
 		<link rel="stylesheet" href="css/common.css" />
 	</head>
+	<style>
+		/*div{display:inline-block}*/
+	</style>
 
 	<body>
 		<div id="box"></div>
@@ -25,6 +28,7 @@
 	<script src="components/ktabbar.js" type="text/javascript" charset="utf-8"></script>
 	<script src="components/klist.js" type="text/javascript" charset="utf-8"></script>
 	<script src="components/kslidemenu.js" type="text/javascript" charset="utf-8"></script>
+	<script src="components/kdetail.js" type="text/javascript" charset="utf-8"></script>
 	<script>
 		var router = new VueRouter({
 			routes: [{
@@ -43,10 +47,16 @@
 					`
 				}
 			}, {
-				path: '/article/:id',
+				path: '/detail/:id',
 				component: {
 					template: `
-						<div><p>详情页</p></div>
+						<div>
+							<klayers></klayers>
+							<kheader></kheader>
+							<kslidemenu></kslidemenu>
+							<kdetail></kdetail>
+							<ktabbar></ktabbar>
+						</div>
 					`
 				}
 			}, {
@@ -60,15 +70,16 @@
 			//定义状态
 			state: {
 				//以下所有的变量就是数据源
-				count: 1,
 				title: "K V U E",
 				search: "",
-				msgNew:null,
-				news: null,
+				news: [],
 				tabbar: 0,
-				changeMenu:false,
-				slider:null,
-				loads:0,
+				changeMenu: false,
+				slider: null,
+				loads: 0,
+				page: 1,
+				id:"",
+				newsDetail:"",
 				imgArr: ["./images/1.jpg", "./images/2.jpg", "./images/3.jpg", "./images/4.jpg", "./images/5.jpg", "./images/6.jpg", "./images/7.jpg", "./images/8.jpg", "./images/9.jpg"]
 			},
 			getters: {
@@ -81,7 +92,7 @@
 				getTabbar(state) {
 					return state.tabbar
 				},
-				getMenu(state){
+				getMenu(state) {
 					return state.slider
 				}
 			},
@@ -95,21 +106,36 @@
 					state.title = data
 				},
 				setNews(state) {
-					console.log(this.Vue)
-					console.log(state.loads)
+					//					console.log(this.Vue)
+					//					console.log(state.loads)
 					state.loads++;
 					this.Vue.http.get("https://cnodejs.org/api/v1//topics", {
 						params: {
-							//page: scope.page++,
-							limit: 10,
+							page: state.page++,
+							limit: 15,
 						}
 					}).then((data) => {
 						console.log(data)
-						state.msgNew = data.body.data;
-						state.news.push(state.msgNew);
+						state.news = state.news.concat(data.body.data)
 						state.loads--;
-						console.log(state.loads)
-						console.log(state.news)
+//						console.log(state.news[2])
+						//						console.log(state.loads)
+//						console.log(state.news)
+					}, (err) => {
+
+					})
+				},
+				setDetail(state) {
+					console.log(state)
+					//					console.log(state.loads)
+					this.Vue.http.get("https://cnodejs.org/api/v1//topics", {
+						params: {
+							id:state.id
+						}
+					}).then((data) => {
+						console.log(data)
+						console.log(data.data)
+						state.newsDetail = state.newsDetail
 					}, (err) => {
 
 					})
@@ -125,6 +151,9 @@
 				},
 				setNews(context, data) {
 					context.commit('setNews')
+				},
+				setDetail(context, data) {
+					context.commit('setDetail')
 				}
 			}
 		})
@@ -132,15 +161,7 @@
 		new Vue({
 			el: "#box",
 			template: `
-				<div>
-					<klayers></klayers>
-					<kheader></kheader>
-					<kslidemenu></kslidemenu>
-					<ksearch></ksearch>
-					<kswiper></kswiper>
-					<klist></klist>
-					<ktabbar></ktabbar>
-				</div>
+				<router-view></router-view>
 			`,
 			store,
 			router,
