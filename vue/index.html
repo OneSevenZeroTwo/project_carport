@@ -47,6 +47,21 @@
 					`
 				}
 			}, {
+				path: '/index',
+				component: {
+					template: `
+						<div>
+							<klayers></klayers>
+							<kheader></kheader>
+							<kslidemenu></kslidemenu>
+							<ksearch></ksearch>
+							<kswiper></kswiper>
+							<klist></klist>
+							<ktabbar></ktabbar>
+						</div>
+					`
+				}
+			}, {
 				path: '/detail/:id',
 				component: {
 					template: `
@@ -64,7 +79,6 @@
 				redirect: '/index'
 			}]
 		});
-
 		//定义状态管理器
 		var store = new Vuex.Store({
 			//定义状态
@@ -72,14 +86,15 @@
 				//以下所有的变量就是数据源
 				title: "K V U E",
 				search: "",
+				searchNews: "",
 				news: [],
 				tabbar: 0,
 				changeMenu: false,
 				slider: null,
 				loads: 0,
 				page: 1,
-				id:"",
-				newsDetail:"",
+				id: "",
+				newsDetail: "",
 				imgArr: ["./images/1.jpg", "./images/2.jpg", "./images/3.jpg", "./images/4.jpg", "./images/5.jpg", "./images/6.jpg", "./images/7.jpg", "./images/8.jpg", "./images/9.jpg"]
 			},
 			getters: {
@@ -96,7 +111,6 @@
 					return state.slider
 				}
 			},
-
 			/////什么叫  分发状态
 			mutations: {
 				setCount(state, data) {
@@ -111,33 +125,34 @@
 					state.loads++;
 					this.Vue.http.get("https://cnodejs.org/api/v1//topics", {
 						params: {
+
 							page: state.page++,
 							limit: 15,
 						}
 					}).then((data) => {
-						console.log(data)
+//						console.log(data)
 						state.news = state.news.concat(data.body.data)
 						state.loads--;
-//						console.log(state.news[2])
-						//						console.log(state.loads)
-//						console.log(state.news)
 					}, (err) => {
 
 					})
 				},
 				setDetail(state) {
-					console.log(state)
-					//					console.log(state.loads)
-					this.Vue.http.get("https://cnodejs.org/api/v1//topics", {
-						params: {
-							id:state.id
-						}
-					}).then((data) => {
-						console.log(data)
-						console.log(data.data)
-						state.newsDetail = state.newsDetail
-					}, (err) => {
+					this.Vue.http.get("https://cnodejs.org/api/v1/topic/" + state.id)
+						.then((data) => {
+//							console.log(this)
+							state.newsDetail = data.data.data
+//							console.log(state.newsDetail)
+						}, (err) => {
 
+						})
+				},
+				testJsonp(state){
+					this.Vue.http.jsonp("https://api.douban.com//v2/movie/top250")
+					.then(function(data){
+						console.log(data)
+					},function(err){
+						console.log(err)
 					})
 				}
 			},
@@ -154,6 +169,9 @@
 				},
 				setDetail(context, data) {
 					context.commit('setDetail')
+				},
+				testJsonp(context, data) {
+					context.commit('testJsonp')
 				}
 			}
 		})
@@ -166,7 +184,7 @@
 			store,
 			router,
 			mounted() {
-				//				console.log(this.$store)
+				//console.log(this.$store)
 			}
 		})
 	</script>

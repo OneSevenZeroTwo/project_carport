@@ -199,7 +199,7 @@ header {
 
 @keyframes moveLeft {
 	from {
-		transform: translateX(300px) translateY(728px);
+		transform: translateX(300px) translateY(628px);
 		width: 300px;
 	}
 	to {
@@ -210,7 +210,7 @@ header {
 @keyframes moveRight {
 	from {}
 	to {
-		transform: translateX(300px) translateY(728px);
+		transform: translateX(300px) translateY(628px);
 	}
 }
 
@@ -236,8 +236,8 @@ header {
 	display: none;
 }
 
-.list_foot_cot a{
-	color:black;
+.list_foot_cot a {
+	color: black;
 	margin-top: 5px;
 	font-size: 14px;
 	height: 16px;
@@ -245,9 +245,9 @@ header {
 	text-align: center;
 }
 
-.list_foot_cot p{
+.list_foot_cot p {
 	height: 20px;
-	display:inline-block;	
+	display: inline-block;
 }
 
 .share_Bg_b {
@@ -260,4 +260,8 @@ header {
 
 .share_Bg_t {
 	background-color: greenyellow;
+}
+
+.detailArticle {
+	margin-top: 50px;
 }

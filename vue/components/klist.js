@@ -35,8 +35,9 @@ Vue.component("klist", {
 		loadMore: function() {
 			//			console.log(this.loads)
 			this.$store.dispatch("setNews")
+			this.$store.dispatch("testJsonp")
 		},
-		putDetail(index){
+		putDetail(index) {
 			this.$store.state.id = index;
 		}
 	},
@@ -73,13 +74,19 @@ Vue.component("klist", {
 				}
 			}
 		},
+		filters: {
+			searchContent_news(input) {
+				input = this.$store.state.searchNews
+				return input
+			}
+		},
 		kinformation: {
 			props: ["timeAge", "tabShare"],
 			template: `
 				<div class="list_foot_cot">
 					<p style="display:inline-block">发布于:{{timeAge|setDate}}前</p>
 					<p style="float: right;">
-						<a href="javascript:void(0);"  :class="{'share_Bg_b':tabShare=='share','share_Bg_r':tabShare=='ask','share_Bg_t':tabShare==undefined}">{{tabShare|t_w_Share}}</a>
+						<a href="javascript:void(0);" :class="{'share_Bg_b':tabShare=='share','share_Bg_r':tabShare=='ask','share_Bg_t':tabShare==undefined}">{{tabShare|t_w_Share}}</a>
 					</p>
 				</div>
 			`,
