@@ -5,6 +5,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<title></title>
+		<link rel="stylesheet" href="css/mui.css" />
 		<link rel="stylesheet" href="css/weui.css" />
 		<link rel="stylesheet" href="css/swiper.css" />
 		<link rel="stylesheet" href="css/common.css" />
@@ -21,6 +22,7 @@
 	<script src="js/vue-resource.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/vue-router2.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/swiper.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="components/klayers.js" type="text/javascript" charset="utf-8"></script>
 	<script src="components/kheader.js" type="text/javascript" charset="utf-8"></script>
 	<script src="components/ksearch.js" type="text/javascript" charset="utf-8"></script>
@@ -29,6 +31,9 @@
 	<script src="components/klist.js" type="text/javascript" charset="utf-8"></script>
 	<script src="components/kslidemenu.js" type="text/javascript" charset="utf-8"></script>
 	<script src="components/kdetail.js" type="text/javascript" charset="utf-8"></script>
+	<script src="components/kmoviesList.js" type="text/javascript" charset="utf-8"></script>
+	<script src="components/kloopMovie.js" type="text/javascript" charset="utf-8"></script>
+	<script src="components/kmovienav.js" type="text/javascript" charset="utf-8"></script>
 	<script>
 		var router = new VueRouter({
 			routes: [{
@@ -47,16 +52,17 @@
 					`
 				}
 			}, {
-				path: '/index',
+				path: '/movie',
 				component: {
 					template: `
 						<div>
 							<klayers></klayers>
 							<kheader></kheader>
 							<kslidemenu></kslidemenu>
+							<kmovienav></kmovienav>
 							<ksearch></ksearch>
-							<kswiper></kswiper>
-							<klist></klist>
+							<kloopMovie></kloopMovie>
+							<kmoviesList></kmoviesList>
 							<ktabbar></ktabbar>
 						</div>
 					`
@@ -88,6 +94,7 @@
 				search: "",
 				searchNews: "",
 				news: [],
+				movieInfo: [],
 				tabbar: 0,
 				changeMenu: false,
 				slider: null,
@@ -113,9 +120,6 @@
 			},
 			/////什么叫  分发状态
 			mutations: {
-				setCount(state, data) {
-					state.count = data
-				},
 				setTitle(state, data) {
 					state.title = data
 				},
@@ -130,7 +134,7 @@
 							limit: 15,
 						}
 					}).then((data) => {
-//						console.log(data)
+						//						console.log(data)
 						state.news = state.news.concat(data.body.data)
 						state.loads--;
 					}, (err) => {
@@ -140,25 +144,37 @@
 				setDetail(state) {
 					this.Vue.http.get("https://cnodejs.org/api/v1/topic/" + state.id)
 						.then((data) => {
-//							console.log(this)
+							//							console.log(this)
 							state.newsDetail = data.data.data
-//							console.log(state.newsDetail)
+							//							console.log(state.newsDetail)
 						}, (err) => {
 
 						})
 				},
-				testJsonp(state){
-					this.Vue.http.jsonp("https://api.douban.com//v2/movie/top250")
-					.then(function(data){
-						console.log(data)
-					},function(err){
+				testJsonp(state) {
+					this.Vue.http.jsonp("https://api.douban.com//v2/movie/top250",{
+						params:{
+							count:10
+						}
+					}).then(function(data) {
+						console.log(data.body.subjects[6].images.small)
+						state.movieInfo = data.body.subjects
+						console.log(state.movieInfo)
+					}, function(err) {
 						console.log(err)
 					})
+				},
+				movieMsg(state) {
+					this.Vue.http.jsonp("https://m.douban.com/rexxar/api/v2/movie/1292052")
+						.then(function(data) {
+							console.log(data)
+						}, function(err) {
+							console.log(err)
+						})
 				}
 			},
 			actions: {
 				setChange(context, data) {
-					context.commit('setCount', data)
 					context.commit('setTitle', data)
 				},
 				setTabbar(context, data) {
@@ -172,6 +188,9 @@
 				},
 				testJsonp(context, data) {
 					context.commit('testJsonp')
+				},
+				setmovieMsg(context, data) {
+					context.commit('movieMsg')
 				}
 			}
 		})

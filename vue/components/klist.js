@@ -35,7 +35,6 @@ Vue.component("klist", {
 		loadMore: function() {
 			//			console.log(this.loads)
 			this.$store.dispatch("setNews")
-			this.$store.dispatch("testJsonp")
 		},
 		putDetail(index) {
 			this.$store.state.id = index;

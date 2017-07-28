@@ -8,7 +8,7 @@ Vue.component("ktabbar", {
 		            <img src="./images/icon_nav_dialog.png" alt="" class="weui-tabbar__icon">
 		            <p class="weui-tabbar__label">交流</p>
 		        </a>
-		        <a href="javascript:;" @click="changTab(1)" :class="{'weui-bar__item_on':tabbar==1}" class="weui-tabbar__item">
+		        <a href="#/movie" @click="changTab(1)" :class="{'weui-bar__item_on':tabbar==1}" class="weui-tabbar__item">
 		            <img src="./images/icon_nav_article.png" alt="" class="weui-tabbar__icon">
 		            <p class="weui-tabbar__label">鎏战</p>
 		        </a>

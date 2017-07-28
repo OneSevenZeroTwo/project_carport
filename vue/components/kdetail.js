@@ -8,10 +8,10 @@ Vue.component("kdetail", {
 			        <h2 class="title">来自于:<a href="#/index">{{newsDetail?newsDetail.author.loginname:""}}</a></h2>
 			        <section>
 			            <kfirstContent :detailContent="newsDetail?newsDetail.content:''"></kfirstContent>
-			            <p>
+			            <!--<p>
 			            	<img src="./images/pic_article.png" alt="">
                 			<img src="./images/pic_article.png" alt="">
-			            </p>
+			            </p>-->
 			        </section>
 			    </section>
 			</article>
