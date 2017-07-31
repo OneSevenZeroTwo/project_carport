@@ -4,7 +4,7 @@ Vue.component("kloopMovie", {
 			        <div class="swiper-wrapper">
 			            <div v-for="(i,index) in movieInfo" class="swiper-slide">
 			            	<img :src="movieInfo?i.images.large:''" style="width:350px;height:200px"/>
-			            	<p style="color:white;">{{i.title}}</p>
+			            	<a :href="i.alt"><p style="color:white;">{{i.title}}</p></a>
 			            </div>
 			        </div>
 			        <!-- Add Pagination -->

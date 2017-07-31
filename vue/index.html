@@ -21,8 +21,10 @@
 	<script src="js/vuex.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/vue-resource.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/vue-router2.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/swiper.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="js/main.js" type="text/javascript" charset="utf-8"></script>-->
 	<script src="components/klayers.js" type="text/javascript" charset="utf-8"></script>
 	<script src="components/kheader.js" type="text/javascript" charset="utf-8"></script>
 	<script src="components/ksearch.js" type="text/javascript" charset="utf-8"></script>
@@ -34,6 +36,8 @@
 	<script src="components/kmoviesList.js" type="text/javascript" charset="utf-8"></script>
 	<script src="components/kloopMovie.js" type="text/javascript" charset="utf-8"></script>
 	<script src="components/kmovienav.js" type="text/javascript" charset="utf-8"></script>
+	<script src="components/kmoviechoice.js" type="text/javascript" charset="utf-8"></script>
+	<script src="components/kmoviedetail.js" type="text/javascript" charset="utf-8"></script>
 	<script>
 		var router = new VueRouter({
 			routes: [{
@@ -67,6 +71,22 @@
 						</div>
 					`
 				}
+			},  {
+				path: '/movie/movielistcla',
+				component: {
+					template: `
+						<div>
+							<klayers></klayers>
+							<kheader></kheader>
+							<kslidemenu></kslidemenu>
+							<kmovienav></kmovienav>
+							<ksearch></ksearch>
+							<kloopMovie></kloopMovie>
+							<kmoviechoice></kmoviechoice>
+							<ktabbar></ktabbar>
+						</div>
+					`
+				}
 			}, {
 				path: '/detail/:id',
 				component: {
@@ -76,6 +96,19 @@
 							<kheader></kheader>
 							<kslidemenu></kslidemenu>
 							<kdetail></kdetail>
+							<ktabbar></ktabbar>
+						</div>
+					`
+				}
+			},  {
+				path: '/moviedetail/:id',
+				component: {
+					template: `
+						<div>
+							<klayers></klayers>
+							<kheader></kheader>
+							<kslidemenu></kslidemenu>
+							<kmoviedetail></kmoviedetail>
 							<ktabbar></ktabbar>
 						</div>
 					`
@@ -101,7 +134,11 @@
 				loads: 0,
 				page: 1,
 				id: "",
+				movie_id:"",
 				newsDetail: "",
+				movieDetail:"",
+				choiceMovie:"",
+				movieNav:["推荐","喜剧","悲剧","剧情","犯罪","动作","历史","灾难 ","科幻"],
 				imgArr: ["./images/1.jpg", "./images/2.jpg", "./images/3.jpg", "./images/4.jpg", "./images/5.jpg", "./images/6.jpg", "./images/7.jpg", "./images/8.jpg", "./images/9.jpg"]
 			},
 			getters: {
@@ -157,7 +194,7 @@
 							count:10
 						}
 					}).then(function(data) {
-						console.log(data.body.subjects[6].images.small)
+//						console.log(data.body.subjects[6].images.small)
 						state.movieInfo = data.body.subjects
 						console.log(state.movieInfo)
 					}, function(err) {
@@ -165,8 +202,9 @@
 					})
 				},
 				movieMsg(state) {
-					this.Vue.http.jsonp("https://m.douban.com/rexxar/api/v2/movie/1292052")
+					this.Vue.http.jsonp("https://m.douban.com/rexxar/api/v2/movie/" + state.movie_id)
 						.then(function(data) {
+//							state.movieDetail = 
 							console.log(data)
 						}, function(err) {
 							console.log(err)

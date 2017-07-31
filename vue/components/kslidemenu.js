@@ -18,7 +18,7 @@ Vue.component("kslidemenu", {
 			            <li class="weui-uploader__file" style="background-image:url(./images/3.jpg)"></li>
 			        </ul>
 			        <div class="weui-uploader__input-box">
-			            <input id="uploaderInput" class="weui-uploader__input" type="file" accept="./images/*" multiple />
+			            <input id="uploaderInput" class="weui-uploader__input" type="file" accept="images/*" multiple />
 			        </div>
 				</div>
 			</div>

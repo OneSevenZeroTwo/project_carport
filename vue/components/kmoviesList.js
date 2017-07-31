@@ -2,13 +2,13 @@ Vue.component("kmoviesList", {
 	template: `
 		<div id="pullrefresh">
 
-			<div class="title">
+			<div class="title" @click="movieList()">
 				Top100电影榜
 			</div>
 			<div class="mui-scroll">
 				<ul class="mui-table-view mui-table-view-chevron">
 					<li v-for="(m,index) in movieInfo" class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
+						<a :href="'#/moviedetail/'+m.id" @click="putmovieDetail(m.id)">
 							<img class="mui-media-object mui-pull-right" :src="m.images.medium">
 							<div class="mui-media-body">
 								{{m.title}}/{{m.original_title}}
@@ -32,9 +32,13 @@ Vue.component("kmoviesList", {
 		movieLoad() {
 			this.$store.dispatch("testJsonp")
 		},
+		putmovieDetail(index) {
+			this.$store.state.movie_id = index;
+		},
 		movieList() {
 //			console.log(this)
 			this.count += 10
+			console.log(this.count)
 			Vue.http.jsonp("https://api.douban.com//v2/movie/top250", {
 				params: {
 					count: this.count
@@ -50,30 +54,6 @@ Vue.component("kmoviesList", {
 	mounted() {
 		this.movieLoad();
 		this.movieList();
-//		mui.init({
-//			pullRefresh: {
-//				container: '#pullrefresh',
-//				down: {
-//					callback: pulldownRefresh
-//				},
-//				up: {
-//					contentrefresh: '正在加载...',
-//					callback: pullupRefresh
-//				}
-//			}
-//		});
-		//		if(mui.os.plus) {
-		//			mui.plusReady(function() {
-		//				setTimeout(function() {
-		//					mui('#pullrefresh').pullRefresh().pullupLoading();
-		//				}, 1000);
-		//
-		//			});
-		//		} else {
-		//			mui.ready(function() {
-		//				mui('#pullrefresh').pullRefresh().pullupLoading();
-		//			});
-		//		}
 	},
 	computed: {
 		movieInfo() {

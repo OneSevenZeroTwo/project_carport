@@ -39,7 +39,7 @@ Vue.component("ksearch", {
 		}
 	},
 	computed:{
-		a: function() {
+		imgAr: function() {
 			return this.$store.getters.getImg
 //			console.log(this.$store.state.arrImg)
 		}
