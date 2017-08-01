@@ -34,6 +34,8 @@ Vue.component("kmoviesList", {
 		},
 		putmovieDetail(index) {
 			this.$store.state.movie_id = index;
+			this.$store.dispatch("movieMessage")
+			this.$store.dispatch("setmovieMsg")
 		},
 		movieList() {
 //			console.log(this)

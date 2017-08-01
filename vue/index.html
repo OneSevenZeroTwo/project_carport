@@ -56,6 +56,19 @@
 					`
 				}
 			}, {
+				path: '/detail/:id',
+				component: {
+					template: `
+						<div>
+							<klayers></klayers>
+							<kheader></kheader>
+							<kslidemenu></kslidemenu>
+							<kdetail></kdetail>
+							<ktabbar></ktabbar>
+						</div>
+					`
+				}
+			},  {
 				path: '/movie',
 				component: {
 					template: `
@@ -88,19 +101,6 @@
 					`
 				}
 			}, {
-				path: '/detail/:id',
-				component: {
-					template: `
-						<div>
-							<klayers></klayers>
-							<kheader></kheader>
-							<kslidemenu></kslidemenu>
-							<kdetail></kdetail>
-							<ktabbar></ktabbar>
-						</div>
-					`
-				}
-			},  {
 				path: '/moviedetail/:id',
 				component: {
 					template: `
@@ -137,6 +137,7 @@
 				movie_id:"",
 				newsDetail: "",
 				movieDetail:"",
+				movieReview:"",
 				choiceMovie:"",
 				movieNav:["推荐","喜剧","悲剧","剧情","犯罪","动作","历史","灾难 ","科幻"],
 				imgArr: ["./images/1.jpg", "./images/2.jpg", "./images/3.jpg", "./images/4.jpg", "./images/5.jpg", "./images/6.jpg", "./images/7.jpg", "./images/8.jpg", "./images/9.jpg"]
@@ -179,6 +180,7 @@
 					})
 				},
 				setDetail(state) {
+					console.log(state.id)
 					this.Vue.http.get("https://cnodejs.org/api/v1/topic/" + state.id)
 						.then((data) => {
 							//							console.log(this)
@@ -201,11 +203,22 @@
 						console.log(err)
 					})
 				},
+				movieMessage(state) {
+					this.Vue.http.jsonp("https://m.douban.com/rexxar/api/v2/movie/"+state.movie_id+"/credits")
+					.then(function(data) {
+						state.movieDetail = data.body.credits
+						console.log(state.movieDetail)
+					}, function(err) {
+						console.log(err)
+					})
+				},
 				movieMsg(state) {
-					this.Vue.http.jsonp("https://m.douban.com/rexxar/api/v2/movie/" + state.movie_id)
+//					console.log(state.movie_id)
+					this.Vue.http.jsonp("https://m.douban.com/rexxar/api/v2/movie/"+state.movie_id+"/interests?count=20&order_by=hot&start=0&ck=&for_mobile=1")
+//					https://m.douban.com/rexxar/api/v2/movie/1291546/interests?count=20&order_by=hot&start=0&ck=&for_mobile=1
 						.then(function(data) {
-//							state.movieDetail = 
-							console.log(data)
+							state.movieReview = data.body.interests
+							console.log(state.movieReview)
 						}, function(err) {
 							console.log(err)
 						})
@@ -229,6 +242,9 @@
 				},
 				setmovieMsg(context, data) {
 					context.commit('movieMsg')
+				},
+				movieMessage(context,data){
+					context.commit('movieMessage')
 				}
 			}
 		})
