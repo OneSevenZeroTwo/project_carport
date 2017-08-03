@@ -16,7 +16,7 @@ Vue.component("ktabbar", {
 		            <img src="./images/icon_nav_search.png" alt="" class="weui-tabbar__icon">
 		            <p class="weui-tabbar__label">发现</p>
 		        </a>
-		        <a href="#/index" @click="changTab(3)" :class="{'weui-bar__item_on':tabbar==3}" class="weui-tabbar__item">
+		        <a href="#/login" @click="changTab(3)" :class="{'weui-bar__item_on':tabbar==3}" class="weui-tabbar__item">
 		            <img src="./images/icon_nav_button.png" alt="" class="weui-tabbar__icon">
 		            <p class="weui-tabbar__label">我</p>
 		        </a>

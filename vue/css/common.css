@@ -34,8 +34,8 @@ header {
 	left: -300px;
 }
 
-#sliderSegmentedControl{
-	margin-top:50px;
+#sliderSegmentedControl {
+	margin-top: 50px;
 }
 
 .slider_content {
@@ -80,7 +80,7 @@ header {
 	font-size: 16px;
 }
 
-#search_Bar .weui-search-bar__form{
+#search_Bar .weui-search-bar__form {
 	height: 30px;
 }
 
@@ -391,14 +391,84 @@ header {
 	background-color: #efeff4;
 }
 
-.mui-control-item{
-	padding:0 15px;
+.mui-control-item {
+	padding: 0 15px;
 }
 
-.mui-table-view{
-	margin-bottom:50px;
+.mui-table-view {
+	margin-bottom: 50px;
 }
 
-.kmoviedetail{
+.kmoviedetail {
+	margin-top: 50px;
+}
+
+#containet_login{
 	margin-top:50px;
+}
+
+#containet_login .qq,
+#containet_login .weixin {
+	height: 20px;
+	font-size: 14px;
+	line-height: 20px;
+	margin-left: 95px;
+	color: black;
+}
+
+.login_register {
+	background-color: #ACACB4;
+	height: 46px;
+}
+
+.login_register p {
+	height: 100%;
+	width: 49%;
+	box-sizing: border-box;
+	text-align: center;
+	display: inline-block;
+}
+
+.login_register a {
+	color: white;
+	font-size: 20px;
+	line-height: 46px;
+}
+
+fieldset {
+	margin: 0 auto;
+	text-align: center;
+	border: none;
+	border-top: 1px #aaa dashed;
+}
+
+legend {
+	padding: 0 10px;
+}
+
+.putdown {
+	margin-top: 30px;
+	text-align: center;
+}
+
+.putdown img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+
+.putdown input {
+	width: 240px;
+	height: 36px;
+	border: none;
+	margin-top: 30px;
+	font-size: 16px;
+	outline: none;
+	background-color: #efeff4;
+	border-bottom: 1px solid #ACACB4;
+}
+
+input[type=text]:focus,
+input[type=password]:focus {
+	border-bottom: 2px darkturquoise solid;
 }

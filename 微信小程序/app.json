@@ -1,0 +1,31 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"dark",
+    "navigationBarBackgroundColor": "orange",
+    "navigationBarTitleText": "树 荫 之 夏",
+    "navigationBarTextStyle":"black",
+    "enablePullDownRefresh":true,
+    "tabBar":{
+      "color": "black",
+      "selectedColor":"orange",
+      "backgroundColor": "red",
+      "list": [{
+        "pagePath":"pages/index/index",
+        "text": "首页"
+      },{
+        "pagePath":"pages/logs/logs",
+        "text":"讨论"
+      },{
+        "pagePath": "pages/finds/finds",
+        "text":"发现"
+      },{
+        "pagePath": "pages/users/users",
+        "text":"我"
+      }]
+    }
+  }
+}

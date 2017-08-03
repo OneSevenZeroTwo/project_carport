@@ -38,6 +38,7 @@
 	<script src="components/kmovienav.js" type="text/javascript" charset="utf-8"></script>
 	<script src="components/kmoviechoice.js" type="text/javascript" charset="utf-8"></script>
 	<script src="components/kmoviedetail.js" type="text/javascript" charset="utf-8"></script>
+	<script src="components/klogin.js" type="text/javascript" charset="utf-8"></script>
 	<script>
 		var router = new VueRouter({
 			routes: [{
@@ -109,6 +110,19 @@
 							<kheader></kheader>
 							<kslidemenu></kslidemenu>
 							<kmoviedetail></kmoviedetail>
+							<ktabbar></ktabbar>
+						</div>
+					`
+				}
+			},  {
+				path: '/login',
+				component: {
+					template: `
+						<div>
+							<klayers></klayers>
+							<kheader></kheader>
+							<kslidemenu></kslidemenu>
+							<klogin></klogin>
 							<ktabbar></ktabbar>
 						</div>
 					`
